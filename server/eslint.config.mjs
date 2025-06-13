@@ -15,6 +15,6 @@ export default defineConfig([
   },
   tseslint.configs.recommended,
   {
-    ignores: ["**/node_modules/**", "**/dist/**"]
+    ignores: ["**/node_modules/**", "**/dist/**", "**/generated/**"]
   }
 ]);
