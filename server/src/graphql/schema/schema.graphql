@@ -1,0 +1,4 @@
+type Query {
+  "A query to fetch a list of items."
+  items: [String!]!
+}

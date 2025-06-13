@@ -1,11 +1,13 @@
-import express from "express";
-const app = express();
-const port = 3000;
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { typeDefs, resolvers } from "./graphql";
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+async function startApolloServer() {
+  const server = new ApolloServer({ typeDefs, resolvers });
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 }
+  });
+  console.log(`Server ready at: ${url}`);
+}
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+startApolloServer();
