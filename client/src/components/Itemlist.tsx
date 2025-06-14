@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { GetItemsQuery } from "../generated/graphql";
 import { GET_ITEMS } from "../graphql/queries/getItems";
 import { useQuery } from "@apollo/client";
@@ -6,6 +6,21 @@ import { useQuery } from "@apollo/client";
 export const ItemList = () => {
   const { data, loading, error } = useQuery<GetItemsQuery>(GET_ITEMS);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [hydrated, setHydrated] = useState<boolean>(false);
+
+  useEffect(() => {
+    const storedItems = localStorage.getItem("selectedItems");
+    if (storedItems) {
+      setSelectedItems(JSON.parse(storedItems));
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) {
+      localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+    }
+  }, [selectedItems, hydrated]);
 
   const toggle = (item: string) => {
     setSelectedItems((prev) =>
@@ -20,7 +35,7 @@ export const ItemList = () => {
     ...allItems.filter((item) => !selectedItems.includes(item))
   ];
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || !hydrated) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
