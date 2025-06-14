@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "test": "vitest",
     "preview": "vite preview",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "generate": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
@@ -21,6 +22,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/client-preset": "^4.8.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
