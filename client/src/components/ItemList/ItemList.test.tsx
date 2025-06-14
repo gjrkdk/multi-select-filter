@@ -2,8 +2,8 @@ import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { render } from "@testing-library/react";
 import { screen, waitFor } from "@testing-library/dom";
-import { GET_ITEMS } from "../graphql/queries/getItems";
-import { ItemList } from "./Itemlist";
+import { GET_ITEMS } from "../../graphql/queries/getItems";
+import { ItemList } from "./ItemList";
 
 const mockItems = ["Literatuur & Romans", "Thrillers", "Fantasy"];
 

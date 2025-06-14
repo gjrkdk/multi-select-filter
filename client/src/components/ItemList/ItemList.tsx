@@ -1,7 +1,7 @@
-import type { GetItemsQuery } from "../generated/graphql";
-import { GET_ITEMS } from "../graphql/queries/getItems";
+import type { GetItemsQuery } from "../../graphql/generated/graphql";
+import { GET_ITEMS } from "../../graphql/queries/getItems";
 import { useQuery } from "@apollo/client";
-import { useSelection } from "../features/selection/useSelection";
+import { useSelection } from "../../features/selection/useSelection";
 
 export const ItemList = () => {
   const { data, loading, error } = useQuery<GetItemsQuery>(GET_ITEMS);

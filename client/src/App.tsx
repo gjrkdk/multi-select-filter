@@ -1,4 +1,4 @@
-import { ItemList } from "./components/Itemlist";
+import { ItemList } from "./components/ItemList/ItemList";
 
 export const App = () => {
   return (
