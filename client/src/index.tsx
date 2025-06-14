@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { SelectionProvider } from "./features/selection/SelectionProvider.tsx";
 import "./index.css";
 import { App } from "./App.tsx";
 
@@ -12,7 +13,9 @@ const client = new ApolloClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <SelectionProvider>
+        <App />
+      </SelectionProvider>
     </ApolloProvider>
   </StrictMode>
 );
