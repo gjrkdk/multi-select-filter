@@ -1,11 +1,11 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { render } from "@testing-library/react";
-import { screen, waitFor } from "@testing-library/dom";
+import { fireEvent, screen, waitFor } from "@testing-library/dom";
 import { GET_ITEMS } from "../../graphql/queries/getItems";
 import { ItemList } from "./ItemList";
 
-const mockItems = ["Literatuur & Romans", "Thrillers", "Fantasy"];
+const mockItems = ["Kunst, Fotografie &amp; Architectuur", "Boeken", "E-books"];
 
 const mockGetItems: MockedResponse = {
   request: {
@@ -19,19 +19,37 @@ const mockGetItems: MockedResponse = {
 };
 
 describe("ItemList", () => {
-  it("renders a list of items from GraphQL", async () => {
+  it("renders decoded item text", async () => {
     render(
       <MockedProvider mocks={[mockGetItems]} addTypename={false}>
         <ItemList />
       </MockedProvider>
     );
 
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText("Kunst, Fotografie & Architectuur")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("filters correctly with decoded characters", async () => {
+    render(
+      <MockedProvider mocks={[mockGetItems]} addTypename={false}>
+        <ItemList />
+      </MockedProvider>
+    );
+
+    await screen.findByText("Kunst, Fotografie & Architectuur");
+
+    fireEvent.change(screen.getByPlaceholderText("Zoek op ..."), {
+      target: { value: "&" }
+    });
 
     await waitFor(() => {
-      mockItems.forEach((item) => {
-        expect(screen.getByText(item)).toBeInTheDocument();
-      });
+      expect(
+        screen.getByText("Kunst, Fotografie & Architectuur")
+      ).toBeInTheDocument();
     });
   });
 });
