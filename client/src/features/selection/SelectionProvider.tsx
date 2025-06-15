@@ -1,9 +1,7 @@
 import { useReducer, useEffect, useState } from "react";
-import { SelectionContext } from "./SelectionContext";
+import { SelectionContext, initialState } from "./SelectionContext";
 import { selectionReducer } from "./selectionReducer";
 import type { ReactNode } from "react";
-
-const initialState = { selectedItems: [] };
 
 export const SelectionProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(selectionReducer, initialState);
