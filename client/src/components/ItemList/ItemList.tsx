@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { useSelection } from "../../features/selection/useSelection";
 import SearchIcon from "../../assets/search.svg";
 import { decodeHtml } from "../../utils/decodeHtml";
+import fallbackData from "../../assets/items.json"; // Adjust the path as necessary
 import type { GetItemsQuery } from "../../graphql/generated/graphql";
 
 export const ItemList = () => {
@@ -12,7 +13,8 @@ export const ItemList = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedTerm, setDebouncedTerm] = useState<string>("");
 
-  const allItems = data?.items || [];
+  const allItems =
+    data?.items && data.items.length > 0 ? data.items : fallbackData.data || [];
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedTerm(searchTerm), 200);
@@ -29,7 +31,9 @@ export const ItemList = () => {
   ];
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) {
+    console.warn("GraphQL fetch failed — falling back to local JSON data");
+  }
 
   return (
     <div className="border border-[#D2D1CD] rounded-lg p-6 w-full max-w-md shadow-sm bg-[#F8F8F8]">
