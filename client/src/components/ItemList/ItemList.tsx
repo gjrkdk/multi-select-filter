@@ -50,7 +50,7 @@ export const ItemList = () => {
           className="absolute right-4 top-2.5 w-5 h-5 pointer-events-none opacity-70"
         />
       </div>
-      <ul className="mt-4 max-h-64 overflow-y-auto pr-1 space-y-3">
+      <ul className="mt-4 max-h-[16rem] overflow-y-auto pr-1 space-y-3 sm:max-h-[24rem]">
         {sortedItems.map((item: string, index: number) => (
           <li key={index} className="flex items-center space-x-2">
             <label
