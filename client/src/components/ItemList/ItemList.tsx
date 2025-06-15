@@ -8,7 +8,7 @@ import fallbackData from "../../assets/items.json"; // Adjust the path as necess
 import type { GetItemsQuery } from "../../graphql/generated/graphql";
 
 export const ItemList = () => {
-  const { data, loading, error } = useQuery<GetItemsQuery>(GET_ITEMS);
+  const { data, error } = useQuery<GetItemsQuery>(GET_ITEMS);
   const { selectedItems, toggle, isSelected } = useSelection();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedTerm, setDebouncedTerm] = useState<string>("");
@@ -22,9 +22,7 @@ export const ItemList = () => {
   }, [error]);
 
   const allItems =
-    !loading && !useFallback && data?.items?.length
-      ? data.items
-      : fallbackData.data;
+    !useFallback && data?.items?.length ? data.items : fallbackData.data;
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedTerm(searchTerm), 200);
@@ -39,8 +37,6 @@ export const ItemList = () => {
     ...selectedItems,
     ...filteredItems.filter((item) => !selectedItems.includes(item))
   ];
-
-  if (loading && !useFallback) return <p>Loading...</p>;
 
   return (
     <div className="border border-[#D2D1CD] rounded-lg p-6 w-full max-w-md shadow-sm bg-[#F8F8F8]">

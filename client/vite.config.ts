@@ -10,6 +10,5 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: "./src/test/setup.ts"
-  },
-  base: process.env.VITE_BASE_PATH || "/multi-select-filter"
+  }
 } as UserConfig);
