@@ -51,6 +51,25 @@ export const ItemList = () => {
           className="absolute right-4 top-2.5 w-5 h-5 pointer-events-none opacity-70"
         />
       </div>
+      {selectedItems.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-4 mb-4">
+          {selectedItems.map((item) => (
+            <span
+              key={item}
+              className="flex items-center bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full"
+            >
+              {decodeHtml(item)}
+              <button
+                onClick={() => toggle(item)}
+                className="ml-2 text-blue-500 hover:text-blue-700 font-bold focus:outline-none"
+                aria-label={`Verwijder ${decodeHtml(item)}`}
+              >
+                &times;
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
       <ul className="mt-4 max-h-[16rem] overflow-y-auto pr-1 space-y-3 sm:max-h-[24rem]">
         {sortedItems.map((item: string, index: number) => (
           <li key={index} className="flex items-center space-x-2">
