@@ -53,20 +53,24 @@ export const ItemList = () => {
       <ul className="mt-4 max-h-64 overflow-y-auto pr-1 space-y-3">
         {sortedItems.map((item: string, index: number) => (
           <li key={index} className="flex items-center space-x-2">
-            <input
-              id={`item-${index}`}
-              type="checkbox"
-              checked={isSelected(item)}
-              onChange={() => toggle(item)}
-              className="accent-blue-[#3063CF]"
-            />
             <label
               htmlFor={`item-${index}`}
-              className={`text-sm ${
-                isSelected(item) ? "text-[#3063CF]" : "text-gray-700"
-              }`}
+              className="flex items-center space-x-2 cursor-pointer select-none"
             >
-              {item}
+              <input
+                id={`item-${index}`}
+                type="checkbox"
+                checked={isSelected(item)}
+                onChange={() => toggle(item)}
+                className="accent-blue-500 w-4 h-4 border border-[#D2D1CD]"
+              />
+              <span
+                className={`text-sm ${
+                  isSelected(item) ? "text-[#3063CF]" : "text-gray-700"
+                }`}
+              >
+                {item}
+              </span>
             </label>
           </li>
         ))}
