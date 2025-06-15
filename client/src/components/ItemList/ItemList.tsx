@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import type { GetItemsQuery } from "../../graphql/generated/graphql";
 import { GET_ITEMS } from "../../graphql/queries/getItems";
 import { useQuery } from "@apollo/client";
 import { useSelection } from "../../features/selection/useSelection";
 import SearchIcon from "../../assets/search.svg";
+import { decodeHtml } from "../../utils/decodeHtml";
+import type { GetItemsQuery } from "../../graphql/generated/graphql";
 
 export const ItemList = () => {
   const { data, loading, error } = useQuery<GetItemsQuery>(GET_ITEMS);
@@ -19,7 +20,7 @@ export const ItemList = () => {
   }, [searchTerm, setDebouncedTerm]);
 
   const filteredItems = allItems.filter((item) =>
-    item.toLowerCase().includes(debouncedTerm.toLowerCase())
+    decodeHtml(item).toLowerCase().includes(debouncedTerm.toLowerCase())
   );
 
   const sortedItems = [
@@ -69,7 +70,7 @@ export const ItemList = () => {
                   isSelected(item) ? "text-[#3063CF]" : "text-gray-700"
                 }`}
               >
-                {item}
+                {decodeHtml(item)}
               </span>
             </label>
           </li>
