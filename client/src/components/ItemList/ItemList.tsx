@@ -43,6 +43,7 @@ export const ItemList = () => {
       <div className="relative">
         <input
           id="search-input"
+          name="search"
           type="text"
           placeholder="Zoek op ..."
           value={searchTerm}
