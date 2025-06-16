@@ -12,19 +12,9 @@ export const ItemList = () => {
   const { selectedItems, toggle, isSelected } = useSelection();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedTerm, setDebouncedTerm] = useState<string>("");
-  const [fallback, setFallback] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (error) {
-      console.warn("GraphQL fetch failed — falling back to local JSON data");
-      setFallback(true);
-    }
-  }, [error]);
 
   const allItems =
-    !loading && data?.items && data.items.length > 0 && !fallback
-      ? data.items
-      : fallbackData.data || [];
+    data?.items && data.items.length > 0 ? data.items : fallbackData.data || [];
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedTerm(searchTerm), 200);
@@ -40,7 +30,10 @@ export const ItemList = () => {
     ...filteredItems.filter((item) => !selectedItems.includes(item))
   ];
 
-  if (loading && !fallback) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) {
+    console.warn("GraphQL fetch failed — falling back to local JSON data");
+  }
 
   return (
     <div className="border border-[#D2D1CD] rounded-lg p-6 w-full max-w-md shadow-sm bg-[#F8F8F8]">
