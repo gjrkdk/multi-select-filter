@@ -58,19 +58,15 @@ export const ItemList = () => {
       {selectedItems.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-4 mb-4">
           {selectedItems.map((item) => (
-            <span
+            <button
               key={item}
-              className="flex items-center bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full"
+              onClick={() => toggle(item)}
+              className="flex items-center bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full hover:bg-blue-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label={`Verwijder ${decodeHtml(item)}`}
             >
               {decodeHtml(item)}
-              <button
-                onClick={() => toggle(item)}
-                className="ml-2 text-blue-500 hover:text-blue-700 font-bold focus:outline-none"
-                aria-label={`Verwijder ${decodeHtml(item)}`}
-              >
-                &times;
-              </button>
-            </span>
+              <span className="ml-2 font-bold">&times;</span>
+            </button>
           ))}
         </div>
       )}
