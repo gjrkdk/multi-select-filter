@@ -2,7 +2,7 @@
 
 This project is a Frontend Developer Assessment that demonstrates the implementation of a multi-select filter. Below is a visual reference for how the filter should look:
 
-![Visual reference of the Multi-Select Filter](../frontend-exercise/client/src/assets/multi-select-filter.jpg)
+![Visual reference of the Multi-Select Filter](client/src/assets/multi-select-filter.jpg)
 
 ---
 
