@@ -1,4 +1,4 @@
-import { ItemList } from "./components/itemlist/ItemList";
+import { ItemList } from "./components/MultiSelectFilter/ItemList/ItemList";
 
 export const App = () => {
   return (
