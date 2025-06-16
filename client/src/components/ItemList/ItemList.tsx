@@ -8,21 +8,23 @@ import fallbackData from "../../assets/items.json"; // Adjust the path as necess
 import type { GetItemsQuery } from "../../graphql/generated/graphql";
 
 export const ItemList = () => {
-  const { data, error } = useQuery<GetItemsQuery>(GET_ITEMS);
+  const { data, loading, error } = useQuery<GetItemsQuery>(GET_ITEMS);
   const { selectedItems, toggle, isSelected } = useSelection();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [debouncedTerm, setDebouncedTerm] = useState<string>("");
-  const [useFallback, setUseFallback] = useState<boolean>(false);
+  const [fallback, setFallback] = useState<boolean>(false);
 
   useEffect(() => {
     if (error) {
       console.warn("GraphQL fetch failed — falling back to local JSON data");
-      setUseFallback(true);
+      setFallback(true);
     }
   }, [error]);
 
   const allItems =
-    !useFallback && data?.items?.length ? data.items : fallbackData.data;
+    !loading && data?.items && data.items.length > 0 && !fallback
+      ? data.items
+      : fallbackData.data || [];
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedTerm(searchTerm), 200);
@@ -37,6 +39,8 @@ export const ItemList = () => {
     ...selectedItems,
     ...filteredItems.filter((item) => !selectedItems.includes(item))
   ];
+
+  if (loading && !fallback) return <p>Loading...</p>;
 
   return (
     <div className="border border-[#D2D1CD] rounded-lg p-6 w-full max-w-md shadow-sm bg-[#F8F8F8]">
