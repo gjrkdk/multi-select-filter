@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { GET_ITEMS } from "../../graphql/queries/getItems";
+import { GET_ITEMS } from "../../../graphql/queries/getItems";
 import { useQuery } from "@apollo/client";
-import { useSelection } from "../../features/selection/useSelection";
-import { decodeHtml } from "../../utils/decodeHtml";
-import fallbackData from "../../assets/items.json";
-import { SearchInput } from "./SearchInput";
-import { SelectedTags } from "./SelectedTags";
-import { ItemRow } from "./ItemRow";
-import type { GetItemsQuery } from "../../graphql/generated/graphql";
+import { useSelection } from "../../../features/selection/useSelection";
+import { decodeHtml } from "../../../utils/decodeHtml";
+import fallbackData from "../../../assets/items.json";
+import { SearchInput } from "../SearchInput/SearchInput";
+import { SelectedTags } from "../SelectedTags/SelectedTags";
+import { ItemRow } from "../ItemRow/ItemRow";
+import type { GetItemsQuery } from "../../../graphql/generated/graphql";
 
 export const ItemList = () => {
   const { data, loading, error } = useQuery<GetItemsQuery>(GET_ITEMS);
