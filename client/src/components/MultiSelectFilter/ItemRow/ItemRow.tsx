@@ -1,4 +1,4 @@
-import { decodeHtml } from "../../utils/decodeHtml";
+import { decodeHtml } from "../../../utils/decodeHtml";
 
 interface ItemRowProps {
   item: string;
