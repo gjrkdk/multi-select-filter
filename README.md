@@ -37,8 +37,8 @@ This project follows a modular architecture using a monorepo layout:
 
 ### Prerequisites
 
-- Node.js ≥ 18
-- npm ≥ 9
+- Node.js ≥ 20
+- npm ≥ 10
 
 ---
 
