@@ -38,15 +38,26 @@ export const ItemList = () => {
   }
 
   return (
-    <div className="border border-[#D2D1CD] rounded-lg p-6 w-full max-w-md shadow-sm bg-[#F8F8F8]">
-      <label htmlFor="search-input" className="block text-base mb-2">
+    <div
+      className="border border-[#D2D1CD] rounded-lg p-6 w-full max-w-md shadow-sm bg-[#F8F8F8]"
+      role="region"
+      aria-labelledby="filter-heading"
+    >
+      <h2 id="filter-heading" className="text-lg font-semibold mb-4">
         Productgroep
+      </h2>
+      <label htmlFor="search-input" className="sr-only">
+        Zoek productgroep
       </label>
       <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {selectedItems.length > 0 && (
         <SelectedTags selectedItems={selectedItems} toggle={toggle} />
       )}
-      <ul className="mt-4 max-h-[16rem] overflow-y-auto pr-1 space-y-3 sm:max-h-[24rem]">
+      <ul
+        className="mt-4 max-h-[16rem] overflow-y-auto pr-1 space-y-3 sm:max-h-[24rem]"
+        role="list"
+        aria-label="Lijst van beschikbare productgroepen"
+      >
         {sortedItems.map((item: string) => (
           <ItemRow
             key={item}
@@ -59,6 +70,7 @@ export const ItemList = () => {
       <button
         type="button"
         className="mt-4 w-full bg-[#3063CF] text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+        aria-label="Bevestig selectie"
       >
         Toepassen
       </button>

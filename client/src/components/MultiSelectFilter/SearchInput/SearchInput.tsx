@@ -10,6 +10,9 @@ export const SearchInput = ({
   setSearchTerm
 }: SearchInputProps) => (
   <div className="relative">
+    <label htmlFor="search-input" className="sr-only">
+      Filter productgroepen
+    </label>
     <input
       id="search-input"
       name="search"
@@ -21,7 +24,8 @@ export const SearchInput = ({
     />
     <img
       src={SearchIcon}
-      alt="Search"
+      alt=""
+      aria-hidden="true"
       className="absolute right-4 top-2.5 w-5 h-5 pointer-events-none opacity-70"
     />
   </div>
