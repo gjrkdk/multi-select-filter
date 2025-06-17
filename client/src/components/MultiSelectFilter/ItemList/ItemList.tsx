@@ -7,6 +7,7 @@ import fallbackData from "../../../assets/items.json";
 import { SearchInput } from "../SearchInput/SearchInput";
 import { SelectedTags } from "../SelectedTags/SelectedTags";
 import { ItemRow } from "../ItemRow/ItemRow";
+import { FixedSizeList as List } from "react-window";
 import type { GetItemsQuery } from "../../../graphql/generated/graphql";
 
 export const ItemList = () => {
@@ -53,20 +54,28 @@ export const ItemList = () => {
       {selectedItems.length > 0 && (
         <SelectedTags selectedItems={selectedItems} toggle={toggle} />
       )}
-      <ul
+      <List
+        height={384}
+        itemCount={sortedItems.length}
+        itemSize={35}
+        width="100%"
         className="mt-4 max-h-[16rem] overflow-y-auto pr-1 space-y-3 sm:max-h-[24rem]"
-        role="list"
         aria-label="Lijst van beschikbare productgroepen"
       >
-        {sortedItems.map((item: string) => (
-          <ItemRow
-            key={item}
-            item={item}
-            isSelected={isSelected(item)}
-            toggle={toggle}
-          />
-        ))}
-      </ul>
+        {({ index, style }) => {
+          const item = sortedItems[index];
+          return (
+            <div style={style} key={item}>
+              <ItemRow
+                item={item}
+                isSelected={isSelected(item)}
+                toggle={toggle}
+              />
+            </div>
+          );
+        }}
+      </List>
+
       <button
         type="button"
         className="mt-4 w-full bg-[#3063CF] text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
