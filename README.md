@@ -111,7 +111,8 @@ Storybook includes component examples for `ItemRow`, `SearchInput`, and `Selecte
 
 ## Challenges & Solutions
 
-| Challenge                           | Solution                                                 |
-| ----------------------------------- | -------------------------------------------------------- |
-| Handling HTML entities like `&amp;` | Implemented a `decodeHtml()` utility for clean rendering |
-| Fallback for server outages         | Loaded static JSON (`items.json`) when GraphQL fails     |
+| Challenge                              | Solution                                                                              |
+| -------------------------------------- | ------------------------------------------------------------------------------------- |
+| Handling HTML entities like `&amp;`    | Implemented a `decodeHtml()` utility for clean rendering                              |
+| Fallback for server outages            | Loaded static JSON (`items.json`) when GraphQL fetch fails                            |
+| Performance issues with large datasets | Added list virtualization via `react-window` to efficiently render only visible items |
