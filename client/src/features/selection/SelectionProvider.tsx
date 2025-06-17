@@ -5,16 +5,20 @@ import type { ReactNode } from "react";
 
 export const SelectionProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(selectionReducer, initialState);
+
+  // Track if localStorage has been read (hydration step)
   const [hydrated, setHydrated] = useState<boolean>(false);
 
+  // On initial render, try to load selected items from localStorage
   useEffect(() => {
     const stored = localStorage.getItem("selectedItems");
     if (stored) {
       dispatch({ type: "HYDRATE", payload: JSON.parse(stored) });
     }
-    setHydrated(true);
+    setHydrated(true); // Mark hydration as complete
   }, []);
 
+  // Persist selected items to localStorage after hydration
   useEffect(() => {
     if (hydrated) {
       localStorage.setItem(
@@ -24,6 +28,7 @@ export const SelectionProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [state.selectedItems, hydrated]);
 
+  // Prevent rendering children until hydration is complete
   if (!hydrated) {
     return null;
   }
